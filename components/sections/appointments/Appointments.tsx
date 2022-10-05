@@ -31,7 +31,7 @@ const Appointments: FC<Props> = ({ _type, title }) => {
     <Section type={_type} id="appointments-container">
       <Heading className="text-center">{title}</Heading>
       {addScript && (
-        <script
+        <Script
           id="zCalScript"
           src="https://static.zcal.co/embed/v1/embed.js"
         />
