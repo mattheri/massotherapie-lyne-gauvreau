@@ -9,29 +9,21 @@ interface Props extends SectionProps {
 }
 
 const Appointments: FC<Props> = ({ _type, title }) => {
-  const [addScript, setAddScript] = useState(false);
-  const src = useRef("https://static.zcal.co/embed/v1/embed.js");
-
-  useEffect(() => {
-    const zCalScript = document.getElementById("zCalScript");
-    const container = document.body;
-
-    console.log("yay");
-
-    return () => {
-      if (container.contains(zCalScript)) {
-        zCalScript?.remove();
-      }
-    };
-  });
-
   return (
-    <Section type={_type} id="appointments-container">
+    <Section type={_type}>
       <Heading className="text-center">{title}</Heading>
-      <Script id="zCalScript" src={`${src.current}?ts=${Date.now()}`} />
-      <div className="zcal-inline-widget">
-        <a href="https://zcal.co/i/h6RdOGG5">Massage - Schedule a meeting</a>
-      </div>
+      <iframe
+        src="https://zcal.co/i/h6RdOGG5?embed=1&embedType=iframe"
+        loading="lazy"
+        style={{
+          border: "none",
+          minWidth: "320px",
+          width: "100%",
+          minHeight: "544px",
+          height: "966px",
+        }}
+        id="zcal-invite"
+      ></iframe>
     </Section>
   );
 };
