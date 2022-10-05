@@ -16,10 +16,6 @@ const Appointments: FC<Props> = ({ _type, title }) => {
     const zCalScript = document.getElementById("zCalScript");
     const container = document.body;
 
-    if (!container.contains(zCalScript)) {
-      setAddScript(true);
-    }
-
     return () => {
       if (container.contains(zCalScript)) {
         zCalScript?.remove();
@@ -30,9 +26,7 @@ const Appointments: FC<Props> = ({ _type, title }) => {
   return (
     <Section type={_type} id="appointments-container">
       <Heading className="text-center">{title}</Heading>
-      {addScript && (
-        <Script id="zCalScript" src={`${src.current}?ts=${Date.now()}`} />
-      )}
+      <Script id="zCalScript" src={`${src.current}?ts=${Date.now()}`} />
       <div className="zcal-inline-widget">
         <a href="https://zcal.co/i/h6RdOGG5">Massage - Schedule a meeting</a>
       </div>
