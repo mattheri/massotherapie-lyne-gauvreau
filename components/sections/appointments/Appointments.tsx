@@ -18,9 +18,12 @@ const Appointments: FC<Props> = ({ _type, title }) => {
     if (!container?.contains(zCalScript)) {
       setAddScript(true);
     }
+
     return () => {
-      setAddScript(false);
-      zCalScript?.remove();
+      if (container?.contains(zCalScript)) {
+        setAddScript(false);
+        zCalScript?.remove();
+      }
     };
   });
 
@@ -28,7 +31,7 @@ const Appointments: FC<Props> = ({ _type, title }) => {
     <Section type={_type} id="appointments-container">
       <Heading className="text-center">{title}</Heading>
       {addScript && (
-        <Script
+        <script
           id="zCalScript"
           src="https://static.zcal.co/embed/v1/embed.js"
         />
