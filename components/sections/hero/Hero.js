@@ -2,8 +2,9 @@ import React from 'react'
 import styles from './Hero.module.css'
 import SimpleBlockContent from '../../SimpleBlockContent'
 import { Cta } from '../../blocs'
-import Section from '../../Section'
+import Section from '../../common/Section'
 import { builder } from '../../../helpers/imageHelpers'
+import cn from "classnames";
 
 const urlFor = (source) => builder.image(source)
 
@@ -16,7 +17,7 @@ const Hero = ({ heading, backgroundImage, tagline, ctas, _type }) => {
     : {}
 
   return (
-    <Section className={styles.root} type={_type} style={style}>
+    <Section fluid className={cn(styles.root, 'px-0')} type={_type} style={style}>
       <div className={styles.content}>
         <h1 className={styles.title}>{heading}</h1>
         <div className={styles.tagline}>{tagline && <SimpleBlockContent blocks={tagline} />}</div>

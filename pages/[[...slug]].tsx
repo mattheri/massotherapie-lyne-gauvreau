@@ -8,6 +8,7 @@ import Layout from "../components/Layout";
 import RenderSections from "../components/RenderSections";
 import { getOpenGraphImages } from "../helpers/imageHelpers";
 import { NextSeo } from "next-seo";
+import { Config } from "../types";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const initialConfig = await getInitialConfig();
@@ -36,10 +37,7 @@ interface Props {
   disallowRobots: boolean;
   openGraphImage: unknown;
   content: unknown[];
-  config: {
-    title: string;
-    url: string;
-  };
+  config: Config;
   slug: string;
 }
 

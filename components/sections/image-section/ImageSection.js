@@ -4,7 +4,7 @@ import styles from './ImageSection.module.css'
 import client from '../../../client'
 import SimpleBlockContent from '../../SimpleBlockContent'
 import Cta from '../../blocs/cta/Cta'
-import Section from '../../Section'
+import Section from '../../common/Section'
 
 const builder = imageUrlBuilder(client)
 
