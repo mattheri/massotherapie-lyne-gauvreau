@@ -22,7 +22,6 @@ const Appointments: FC<Props> = ({ _type, title }) => {
 
     return () => {
       if (container.contains(zCalScript)) {
-        setAddScript(false);
         zCalScript?.remove();
       }
     };
