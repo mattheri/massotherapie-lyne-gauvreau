@@ -15,6 +15,13 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "components/sections/hero/Hero.jsx",
+    "components/blocs/simple-bloc-content/SimpleBlocContent.jsx",
+    "components/blocs/cta/Cta.jsx"
+  ],
   "exclude": ["node_modules"]
 }
