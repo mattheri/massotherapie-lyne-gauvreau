@@ -19,7 +19,7 @@ const Booking = ({ script, _type }) => {
 
 	return <Section type={_type}>
 		<script type="text/javascript" async src="https://static.zcal.co/embed/v1/embed.js"></script>
-		<div class="zcal-inline-widget"><a href="https://zcal.co/i/h6RdOGG5" target="_blank"></a></div>
+		<div class="zcal-inline-widget"><a href="https://zcal.co/i/h6RdOGG5" target="_blank" rel="noreferrer"></a></div>
 	</Section>
 }
 
