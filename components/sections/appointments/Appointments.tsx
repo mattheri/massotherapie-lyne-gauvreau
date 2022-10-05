@@ -16,6 +16,8 @@ const Appointments: FC<Props> = ({ _type, title }) => {
     const zCalScript = document.getElementById("zCalScript");
     const container = document.body;
 
+    console.log("yay");
+
     return () => {
       if (container.contains(zCalScript)) {
         zCalScript?.remove();
