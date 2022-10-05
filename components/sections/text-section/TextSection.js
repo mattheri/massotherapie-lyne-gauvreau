@@ -1,7 +1,7 @@
 import React from 'react'
-import SimpleBlockContent from '../SimpleBlockContent'
+import SimpleBlockContent from '../../SimpleBlockContent'
 import styles from './TextSection.module.css'
-import Section from '../Section'
+import Section from '../../Section'
 
 const TextSection = ({ heading, label, text, _type }) => {
   return (

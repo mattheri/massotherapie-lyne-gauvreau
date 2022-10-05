@@ -22,9 +22,7 @@ export const getInitialConfig = async () => {
 export const getSlugData = async ({
   params,
 }: GetStaticPropsContext<ParsedUrlQuery, PreviewData>) => {
-  if (!params || !params.slug) return {};
-
-  const slug = slugParamToPath(params.slug);
+  const slug = slugParamToPath(params?.slug);
 
   const isFrontPage = slug === frontPagePath;
   const query = isFrontPage ? linkedFrontPageQuery : routeDocumentQuery;

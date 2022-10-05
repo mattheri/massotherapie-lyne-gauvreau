@@ -1,11 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
-import { withRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import styles from './Footer.module.css'
 import SimpleBlockContent from './SimpleBlockContent'
 import { getPathFromSlug, slugParamToPath } from '../helpers/urlHelpers'
 
-const Footer = ({ navItems, text, router }) => {
+const Footer = ({ navItems, text }) => {
+  const router = useRouter()
+
   return (
     <div className={styles.root}>
       <nav>
@@ -32,4 +34,4 @@ const Footer = ({ navItems, text, router }) => {
   )
 }
 
-export default withRouter(Footer)
+export default Footer

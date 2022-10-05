@@ -1,4 +1,3 @@
-import React from 'react'
 import { PortableText } from '@portabletext/react'
 import EmbedHTML from './EmbedHTML'
 import Figure from './Figure'

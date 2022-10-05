@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import styles from './Cta.module.css'
 
-const Cta = ({ title, route, link }) => {
+const Cta = ({ title, route, link, ...rest }) => {
   if (route && route.slug && route.slug.current) {
     return (
       <Link

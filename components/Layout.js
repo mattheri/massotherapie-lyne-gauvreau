@@ -1,5 +1,4 @@
 import Head from 'next/head'
-
 import { LogoJsonLd } from 'next-seo'
 import Header from './Header'
 import Footer from './Footer'

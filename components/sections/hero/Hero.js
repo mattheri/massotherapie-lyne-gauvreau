@@ -1,12 +1,11 @@
 import React from 'react'
-import imageUrlBuilder from '@sanity/image-url'
 import styles from './Hero.module.css'
-import client from '../../client'
-import SimpleBlockContent from '../SimpleBlockContent'
-import Cta from '../Cta'
-import Section from '../Section'
+import SimpleBlockContent from '../../SimpleBlockContent'
+import { Cta } from '../../blocs'
+import Section from '../../Section'
+import { builder } from '../../../helpers/imageHelpers'
 
-const urlFor = (source) => imageUrlBuilder(client).image(source)
+const urlFor = (source) => builder.image(source)
 
 const Hero = ({ heading, backgroundImage, tagline, ctas, _type }) => {
 

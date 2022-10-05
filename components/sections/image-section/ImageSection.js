@@ -1,10 +1,10 @@
 import React from 'react'
 import imageUrlBuilder from '@sanity/image-url'
 import styles from './ImageSection.module.css'
-import client from '../../client'
-import SimpleBlockContent from '../SimpleBlockContent'
-import Cta from '../Cta'
-import Section from '../Section'
+import client from '../../../client'
+import SimpleBlockContent from '../../SimpleBlockContent'
+import Cta from '../../blocs/cta/Cta'
+import Section from '../../Section'
 
 const builder = imageUrlBuilder(client)
 
