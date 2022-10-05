@@ -10,17 +10,18 @@ interface Props extends SectionProps {
 
 const Appointments: FC<Props> = ({ _type, title }) => {
   const [addScript, setAddScript] = useState(false);
+  const src = useRef("https://static.zcal.co/embed/v1/embed.js");
 
   useEffect(() => {
     const zCalScript = document.getElementById("zCalScript");
-    const container = document.getElementById("appointments-container");
+    const container = document.body;
 
-    if (!container?.contains(zCalScript)) {
+    if (!container.contains(zCalScript)) {
       setAddScript(true);
     }
 
     return () => {
-      if (container?.contains(zCalScript)) {
+      if (container.contains(zCalScript)) {
         setAddScript(false);
         zCalScript?.remove();
       }
@@ -31,10 +32,7 @@ const Appointments: FC<Props> = ({ _type, title }) => {
     <Section type={_type} id="appointments-container">
       <Heading className="text-center">{title}</Heading>
       {addScript && (
-        <Script
-          id="zCalScript"
-          src="https://static.zcal.co/embed/v1/embed.js"
-        />
+        <Script id="zCalScript" src={`${src.current}?ts=${Date.now()}`} />
       )}
       <div className="zcal-inline-widget">
         <a href="https://zcal.co/i/h6RdOGG5">Massage - Schedule a meeting</a>
