@@ -18,7 +18,7 @@ const ImageSection: FC<SectionProps> = ({
   _type,
 }) => {
   return (
-    <Section className={styles.root} type={_type}>
+    <Section className={styles.root} type={_type} revealInViewport>
       <If condition={!!image}>
         <Then>
           <figure className={styles.content}>

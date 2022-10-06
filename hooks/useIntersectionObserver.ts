@@ -1,4 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import {
+  MutableRefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 const rectDefaults = {
   top: 0,
@@ -22,7 +28,15 @@ interface FakeIntersectionObserverEntry
   boundingClientRect: typeof rectDefaults;
 }
 
-const useIntersectionObserver = (options: IntersectionObserverInit) => {
+type Disconnect = () => void;
+
+const useIntersectionObserver = (
+  options?: IntersectionObserverInit
+): [
+  MutableRefObject<any>,
+  FakeIntersectionObserverEntry | IntersectionObserverEntry,
+  Disconnect
+] => {
   const { root = null, rootMargin = "0px", threshold = 0 } = options || {};
   const ref = useRef();
   const [entry, updateEntry] = useState<
@@ -36,42 +50,51 @@ const useIntersectionObserver = (options: IntersectionObserverInit) => {
     boundingClientRect: rectDefaults,
   });
   const [node, setNode] = useState(null);
-  const [target, setTarget] = useState(null);
 
   let observer = useRef<IntersectionObserver>(null);
 
-  useEffect(() => {
-    let currentObserver = observer.current;
+  const createNewObserver = () => {
+    return new IntersectionObserver(
+      (entries) => {
+        entries.forEach(updateEntry);
+      },
+      {
+        root: root,
+        rootMargin,
+        threshold,
+      }
+    );
+  };
 
-    if (!currentObserver) {
+  const disconnect = useCallback(() => {
+    if (observer.current) observer.current.disconnect();
+  }, [observer.current, node]);
+
+  useEffect(() => {
+    if (!observer.current) {
       observer = {
-        current: new IntersectionObserver(
-          (entries) => {
-            entries.forEach(updateEntry);
-          },
-          {
-            root: target || document.body,
-            rootMargin,
-            threshold,
-          }
-        ),
+        current: createNewObserver(),
       };
     } else {
-      currentObserver.disconnect();
+      observer.current.disconnect();
+
+      observer = {
+        current: createNewObserver(),
+      };
     }
 
-    if (node && currentObserver) currentObserver.observe(node);
+    if (node && observer.current) observer.current.observe(node);
 
     return () => {
-      currentObserver && currentObserver.disconnect();
+      observer.current && observer.current.disconnect();
     };
-  }, [node, target]);
+  }, [node]);
 
   useEffect(() => {
     if (ref.current) setNode(ref.current);
   }, [ref]);
 
-  return [ref, entry, setTarget];
+  return [ref, entry, disconnect];
 };
 
 export default useIntersectionObserver;

@@ -8,7 +8,7 @@ import Then from "../../common/react-if/Then";
 
 const TextSection: FC<SectionProps> = ({ heading, label, text, _type }) => {
   return (
-    <Section as="div" className={styles.root} type={_type}>
+    <Section revealInViewport as="div" className={styles.root} type={_type}>
       <section className={styles.article}>
         <div className={styles.label}>{label}</div>
         <h2 className={styles.heading}>{heading}</h2>
