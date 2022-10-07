@@ -1,9 +1,9 @@
-@import "../../../styles/custom-media.css";
-
 .root {
   padding: 2rem 0;
+}
 
-  @media (--media-min-medium) {
+@media screen and (min-width: 675px) {
+  .root {
     padding: 4rem 0;
   }
 }

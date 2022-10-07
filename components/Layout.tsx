@@ -1,10 +1,9 @@
 import Head from "next/head";
 import { LogoJsonLd } from "next-seo";
-import Header from "./Header";
-import Footer from "./Footer";
 import Container from "react-bootstrap/Container";
 import { FC } from "react";
 import { LayoutProps } from "../types";
+import { Header, Footer } from "../components/blocs";
 
 const Layout: FC<LayoutProps> = ({ config, children }) => {
   if (!config) {

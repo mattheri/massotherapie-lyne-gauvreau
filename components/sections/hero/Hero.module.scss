@@ -1,7 +1,4 @@
-@import "../../../styles/custom-media.css";
-
 .root {
-  composes: center from "../../../styles/shared.module.css";
   position: relative;
   background-color: var(--color-black, #000);
   color: var(--color-white, #fff);
@@ -10,7 +7,13 @@
   background-position: center center;
   padding-bottom: 2rem;
 
-  @media (--media-min-medium) {
+  & p {
+    & a {
+      color: inherit;
+    }
+  }
+
+  @media screen and (min-width: 675px) {
     padding-bottom: 4rem;
   }
 }
@@ -36,7 +39,6 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: left;
 }
 
 .title {
@@ -46,7 +48,8 @@
   line-height: var(--font-title2-line-height);
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
   margin: 0;
-  @media (--media-min-medium) {
+
+  @media screen and (min-width: 675px) {
     font-size: var(--font-title1-size);
     line-height: var(--font-title1-line-height);
   }
@@ -60,14 +63,14 @@
   margin-bottom: 1rem;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
 
-  @media (--media-min-medium) {
+  p {
+    margin: 0;
+  }
+
+  @media screen and (min-width: 675px) {
     font-size: var(--font-large-size);
     line-height: var(--font-large-line-height);
   }
-}
-
-.tagline > p {
-  margin: 0;
 }
 
 .ctas {
@@ -75,13 +78,15 @@
   display: flex;
   margin-bottom: 8rem;
 
-  @media (--media-min-medium) {
+  & * {
+    &:not(:first-child) {
+      margin-left: 1rem;
+    }
+  }
+
+  @media screen and (min-width: 675px) {
     margin-top: 3rem;
   }
-}
-
-.ctas > *:not(:first-child) {
-  margin-left: 1rem;
 }
 
 .root p a {

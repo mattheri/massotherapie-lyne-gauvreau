@@ -1,11 +1,10 @@
 import React, { FC } from "react";
-import styles from "./ImageSection.module.css";
+import styles from "./ImageSection.module.scss";
 import SimpleBlockContent from "../../SimpleBlockContent";
 import Cta from "../../blocs/cta/Cta";
 import Section from "../../common/Section";
 import If from "../../common/react-if/If";
 import Then from "../../common/react-if/Then";
-import Image from "next/image";
 import { SectionProps } from "../../../types";
 import SanityImage from "../../common/SanityImage";
 

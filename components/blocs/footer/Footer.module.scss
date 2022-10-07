@@ -13,26 +13,25 @@
   padding: 0;
 }
 
-.item {
-  @nest & > a {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    padding: 1.5rem 0.5rem;
-    @nest &[data-is-active='true'] {
-      font-weight: bold;
-    }
-  }
+.item > a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: 1.5rem 0.5rem;
+}
+
+.item > a[data-is-active="true"] {
+  font-weight: bold;
 }
 
 .text {
   text-align: center;
+}
 
-  @nest & p {
-    margin: 1rem 0;
-  }
+.text p {
+  margin: 1rem 0;
+}
 
-  @nest & a {
-    color: inherit;
-  }
+.text a {
+  color: inherit;
 }

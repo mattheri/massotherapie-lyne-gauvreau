@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Container, { ContainerProps } from "react-bootstrap/Container";
 import classNames from "classnames";
-import styles from "./Section.module.css";
+import styles from "./Section.module.scss";
 import StorySecton from "./StoryContainer";
 
 interface Props extends ContainerProps {

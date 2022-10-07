@@ -1,5 +1,5 @@
 import { FC } from "react";
-import styles from "./Hero.module.css";
+import styles from "./Hero.module.scss";
 import SimpleBlockContent from "../../SimpleBlockContent";
 import { Cta } from "../../blocs";
 import Section from "../../common/Section";

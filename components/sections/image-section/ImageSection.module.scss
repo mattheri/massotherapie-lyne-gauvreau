@@ -1,10 +1,10 @@
-@import "../../../styles/custom-media.css";
-
 .root {
   position: relative;
   padding: 2rem 0;
+}
 
-  @media (--media-min-medium) {
+@media screen and (min-width: 675px) {
+  .root {
     padding: 4rem 0;
   }
 }
@@ -33,15 +33,16 @@
 
 .content {
   position: relative;
-  margin: 0 1.5rem;
+  margin: 0 auto;
   max-width: var(--width-medium);
+}
 
-  @nest & figcaption {
-    width: 100%;
-    box-sizing: border-box;
-  }
+.content figcaption {
+  width: 100%;
+  box-sizing: border-box;
+  max-width: var(--width-small);
 
-  @media (--media-min-medium) {
+  @media screen and (min-width: 675px) {
     margin: 0 auto;
     padding-top: 2rem;
   }

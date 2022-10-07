@@ -1,6 +1,6 @@
 import React from 'react'
 import SVG from 'react-inlinesvg'
-import styles from './Header.module.css'
+import styles from "./Logo.module.scss";
 
 const Logo = ({ logo }) => {
 	if (!logo || !logo.asset) {
@@ -8,10 +8,10 @@ const Logo = ({ logo }) => {
 	}
 
 	if (logo.asset.extension === 'svg') {
-		return <SVG src={logo.asset.url} className={styles.logo} />
+		return <SVG src={logo.asset.url} className={styles.root} />
 	}
 
-	return <img src={logo.asset.url} alt={logo.title} className={styles.logo} />
+	return <img src={logo.asset.url} alt={logo.title} className={styles.root} />
 }
 
 export default Logo

@@ -5,11 +5,12 @@ export interface SectionProps {
   [key: string]: any;
 }
 
-interface Asset {
+export interface Asset {
   asset: {
     extension: string;
     url: string;
   };
+  title: string;
 }
 
 interface ReferencePage {
@@ -26,7 +27,7 @@ export interface Route {
   slug: Slug;
 }
 
-interface NavigationObject {
+export interface NavigationObject {
   includeInSitemap: boolean;
   page: ReferencePage;
   slug: Slug;

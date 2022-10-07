@@ -1,11 +1,21 @@
 import { useState, useEffect } from "react";
 
-type ScrollCallback = (scrollData: {
+export type ScrollCallback = (scrollData: {
   scrollY: number;
   scrollDirection: "up" | "down";
 }) => void;
 
-const useWindowScroll = (
+interface Options {
+  threshold?: number;
+  applyThreshold?: "both" | "up" | "down";
+}
+
+type UseWindowScrollHook = (
+  callback: ScrollCallback,
+  options?: Options
+) => void;
+
+const useWindowScroll: UseWindowScrollHook = (
   callback: ScrollCallback,
   options = { threshold: 50, applyThreshold: "both" }
 ) => {

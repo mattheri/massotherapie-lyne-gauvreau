@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import Link from "next/link";
-import styles from "./Cta.module.css";
+import styles from "./Cta.module.scss";
 import { Route } from "../../../types";
 
 interface Props {
