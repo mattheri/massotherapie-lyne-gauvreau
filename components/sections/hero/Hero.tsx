@@ -3,14 +3,12 @@ import styles from "./Hero.module.scss";
 import SimpleBlockContent from "../../SimpleBlockContent";
 import { Cta } from "../../blocs";
 import Section from "../../common/Section";
-import { builder } from "../../../helpers/imageHelpers";
 import cn from "classnames";
 import If from "../../common/react-if/If";
 import Then from "../../common/react-if/Then";
 import { Route, SectionProps } from "../../../types";
 import Container from "react-bootstrap/Container";
-
-const urlFor = (source: any) => builder.image(source);
+import SanityImage from "../../common/SanityImage";
 
 interface Props extends SectionProps {
   ctas?: {
@@ -28,22 +26,14 @@ const Hero: FC<Props> = ({
   ctas,
   _type,
 }) => {
-  const style = backgroundImage
-    ? {
-        backgroundImage: `url("${urlFor(backgroundImage)
-          .width(2000)
-          .auto("format")
-          .url()}")`,
-      }
-    : {};
-
   return (
-    <Section
-      fluid
-      className={cn(styles.root, "px-0")}
-      type={_type}
-      style={style}
-    >
+    <Section fluid className={cn(styles.root, "px-0")} type={_type}>
+      <SanityImage
+        layout="fill"
+        objectFit="cover"
+        image={backgroundImage}
+        className={styles.heroImage}
+      />
       <Container className={styles.content}>
         <h1 className={styles.title}>{heading}</h1>
         <div className={styles.tagline}>
