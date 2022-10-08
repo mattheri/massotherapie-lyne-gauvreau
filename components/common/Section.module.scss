@@ -1,14 +1,31 @@
-.root:not(:first-of-type) {
-  margin-top: calc(var(--bs-gutter-x) * 2);
+.root {
+  min-height: 50vh;
+  display: grid;
+  place-items: center;
+
+  &:not(:first-of-type) {
+    padding-bottom: 2.5rem;
+    padding-top: 2.5rem;
+  }
+
+  &:nth-of-type(even) {
+    background-color: var(--ebb);
+    color: var(--ebony-clay);
+  }
+
+  &:nth-of-type(odd) {
+    background-color: var(--ebony-clay);
+    color: var(--ebb);
+  }
 }
 
-.root.notInView {
+.content.notInView {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-.root.inView {
+.content.inView {
   opacity: 1;
   transform: translateY(0);
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;

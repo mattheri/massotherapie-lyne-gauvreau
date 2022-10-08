@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Container, { ContainerProps } from "react-bootstrap/Container";
-import classNames from "classnames";
+import cn from "classnames";
 import styles from "./Section.module.scss";
 import StorySecton from "./StoryContainer";
 
@@ -14,20 +14,24 @@ const Section: FC<Props> = ({
   as = "section",
   children,
   revealInViewport,
+  className,
   ...rest
 }) => {
-  return revealInViewport ? (
-    <StorySecton type={type} as={as} {...rest}>
-      {children}
-    </StorySecton>
-  ) : (
-    <Container
-      as={as}
-      className={classNames(styles.root, rest.className)}
-      data-section-type={`${type}`}
-      {...rest}
-    >
-      {children}
+  return (
+    <Container fluid as={as} className={cn(styles.root, "px-0")}>
+      {revealInViewport ? (
+        <StorySecton type={type} {...rest} className={className}>
+          {children}
+        </StorySecton>
+      ) : (
+        <Container
+          className={className}
+          data-section-type={`${type}`}
+          {...rest}
+        >
+          {children}
+        </Container>
+      )}
     </Container>
   );
 };

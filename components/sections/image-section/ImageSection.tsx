@@ -21,7 +21,7 @@ const ImageSection: FC<SectionProps> = ({
       <If condition={!!image}>
         <Then>
           <figure className={styles.content}>
-            <SanityImage image={image} />
+            <SanityImage image={image} className={styles.image} />
             <figcaption>
               <div className={styles.caption}>
                 <div className={styles.captionBox}>

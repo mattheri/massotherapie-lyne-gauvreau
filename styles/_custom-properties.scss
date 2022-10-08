@@ -2,7 +2,8 @@
   --wide-container: 60rem;
   --narrow-container: 40rem;
 
-  --font-family-sans: 'Poppins', sans-serif, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-sans: 'Poppins', sans-serif;
+  --font-base-weight: 100;
 
   --color-black: #202123;
   --color-dark-gray: #32373e;
@@ -11,6 +12,12 @@
   --color-very-light-gray: #e7ebed;
   --color-white: #fff;
   --color-accent: #156dff;
+
+  --ebb: #EBE8E8;
+  --chesnut-rose: #C86A49;
+  --main-brand-color: #818790;
+  --ferra: #7C5452;
+  --ebony-clay: #272640;
 
   /* Typography */
   --unit: 16;
@@ -48,4 +55,11 @@
 
   --media-max-x-large: max-width: 1349px;
   --media-min-x-large: min-width: 1350px;
+
+  --shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+
+  --bs-body-font-family: var(--font-family-sans);
+  --bs-body-font-weight: var(--font-base-weight);
+  --bs-body-color: var(--ebony-clay);
+  --bs-body-line-height: var(--font-base-line-height);
 }

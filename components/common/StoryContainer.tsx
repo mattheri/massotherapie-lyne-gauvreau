@@ -26,7 +26,7 @@ const StorySecton: FC<Props> = ({
   return (
     <Container
       as={as}
-      className={cn(styles.root, className, {
+      className={cn(styles.content, className, {
         [styles.inView]: entry?.isIntersecting,
         [styles.notInView]: !entry?.isIntersecting,
       })}

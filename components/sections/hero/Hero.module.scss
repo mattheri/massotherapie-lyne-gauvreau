@@ -1,7 +1,7 @@
 .root {
   position: relative;
   background-color: var(--color-black, #000);
-  color: var(--color-white, #fff);
+  color: var(--ebb);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -43,7 +43,7 @@
 
 .title {
   position: relative;
-  font-weight: 600;
+  font-weight: 100;
   font-size: var(--font-title2-size);
   line-height: var(--font-title2-line-height);
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);

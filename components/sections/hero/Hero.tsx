@@ -8,6 +8,7 @@ import cn from "classnames";
 import If from "../../common/react-if/If";
 import Then from "../../common/react-if/Then";
 import { Route, SectionProps } from "../../../types";
+import Container from "react-bootstrap/Container";
 
 const urlFor = (source: any) => builder.image(source);
 
@@ -43,7 +44,7 @@ const Hero: FC<Props> = ({
       type={_type}
       style={style}
     >
-      <div className={styles.content}>
+      <Container className={styles.content}>
         <h1 className={styles.title}>{heading}</h1>
         <div className={styles.tagline}>
           <If condition={!!tagline}>
@@ -61,7 +62,7 @@ const Hero: FC<Props> = ({
             </div>
           </Then>
         </If>
-      </div>
+      </Container>
     </Section>
   );
 };

@@ -5,6 +5,7 @@ import styles from "./Footer.module.scss";
 import SimpleBlockContent from "../../SimpleBlockContent";
 import { getPathFromSlug, slugParamToPath } from "../../../helpers/urlHelpers";
 import { NavigationObject, SectionProps } from "../../../types";
+import Section from "../../common/Section";
 
 interface Props {
   navItems: NavigationObject[];
@@ -15,7 +16,7 @@ const Footer: FC<Props> = ({ navItems, text }) => {
   const router = useRouter();
 
   return (
-    <div className={styles.root}>
+    <Section className={styles.root} as="footer" type="footer">
       <nav>
         <ul className={styles.items}>
           {navItems &&
@@ -40,7 +41,7 @@ const Footer: FC<Props> = ({ navItems, text }) => {
       <div className={styles.text}>
         <SimpleBlockContent blocks={text} />
       </div>
-    </div>
+    </Section>
   );
 };
 

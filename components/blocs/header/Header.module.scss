@@ -5,6 +5,7 @@
   top: 0;
   left: 0;
   transition: transform 0.3s ease-in-out;
+  box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
   background-color: var(--color-white);
 }
 
@@ -13,7 +14,7 @@
 }
 .content {
   position: relative;
-  color: var(--color-black, #000);
+  color: var(--ebony-clay);
   display: flex;
   margin: 0 auto;
   max-width: var(--width-large);
@@ -25,7 +26,7 @@
 }
 
 .root[data-show-nav="true"] .branding svg {
-  color: var(--color-white, #fff);
+  color: var(--ebb, #fff);
 }
 
 .branding {
@@ -78,8 +79,8 @@
     position: absolute;
     left: 0;
     width: 100%;
-    background-color: var(--color-black, #000);
-    color: var(--color-white, #fff);
+    background-color: var(--ebony-clay);
+    color: var(--ebb);
     height: 100vh;
     top: 0;
     left: 0;
