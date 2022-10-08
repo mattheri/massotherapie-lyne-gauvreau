@@ -19,6 +19,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       ...initialConfig,
       ...pageProps,
     },
+    revalidate: 1,
   };
 };
 
