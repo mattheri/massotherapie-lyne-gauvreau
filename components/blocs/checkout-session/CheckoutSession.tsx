@@ -1,5 +1,5 @@
 import type { Component } from "../../../types";
-import type { FormEventHandler } from "react";
+import type { MouseEventHandler } from "react";
 
 import { Button, Heading } from "../../common";
 
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const CheckoutSession: Component<Props> = ({ time, total }) => {
-  const onSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
+  const onSubmit: MouseEventHandler<HTMLButtonElement> = async (event) => {
     const { loadStripe } = await import("@stripe/stripe-js");
 
     const publicKey = process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY;
@@ -52,16 +52,14 @@ const CheckoutSession: Component<Props> = ({ time, total }) => {
 
   return (
     <Container fluid className="px-0">
-      <Form onSubmit={onSubmit}>
-        <Container as="section" fluid className={cn(styles.root, "px-0")}>
-          <Heading as="h5" className="text-center py-2">
-            Votre total: {total}$
-          </Heading>
-          <Button type="submit" className={styles.button}>
-            Payer en ligne
-          </Button>
-        </Container>
-      </Form>
+      <Container as="section" fluid className={cn(styles.root, "px-0")}>
+        <Heading as="h5" className="text-center py-2">
+          Votre total: {total}$
+        </Heading>
+        <Button onClick={onSubmit} className={styles.button}>
+          Payer en ligne
+        </Button>
+      </Container>
     </Container>
   );
 };
