@@ -1,5 +1,6 @@
-import type { SectionProps } from "../../../types";
-import type { FC, ChangeEventHandler } from "react";
+import type { Pay, SectionComponent } from "../../../types";
+import type { ChangeEventHandler } from "react";
+
 import { useState, useEffect } from "react";
 
 import Form from "react-bootstrap/Form";
@@ -7,10 +8,11 @@ import Col from "react-bootstrap/Col";
 
 import { Section, Heading, If } from "../../common";
 
-import debounce from "lodash.debounce";
+import { useDebounce } from "../../../hooks";
 
 import styles from "./Appointments.module.scss";
-interface Props extends SectionProps {
+import CheckoutSession from "../../blocs/checkout-session/CheckoutSession";
+interface Props {
   title: string;
   appointmentIdFirst: string;
   appointmentIdSecond: string;
@@ -28,32 +30,38 @@ const formInputs = [
   },
 ];
 
-const Appointments: FC<Props> = ({
+interface FormData {
+  pay: Pay;
+  time: string;
+}
+
+const Appointments: SectionComponent<Props> = ({
   _type,
   title,
   appointmentIdFirst,
   appointmentIdSecond,
-  appointmentIdThird,
 }) => {
-  const appointments = [
-    appointmentIdFirst,
-    appointmentIdSecond,
-    appointmentIdThird,
-  ];
+  const appointments: Record<string, string> = {
+    "1": appointmentIdFirst,
+    "1.5": appointmentIdSecond,
+  };
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     pay: "stripe",
-    hours: 1,
+    time: "1",
   });
   const [embedUrl, setEmbedUrl] = useState(
-    createEmbedUrl(appointments[formData.hours])
+    createEmbedUrl(appointments[formData.time])
   );
 
-  const updateEmbedUrlHandler = debounce(() => {
-    setEmbedUrl(createEmbedUrl(appointments[formData.hours - 1]));
-  }, 1000);
+  const updateEmbedUrl = () =>
+    setEmbedUrl(createEmbedUrl(appointments[formData.time]));
 
-  const updateFormData: ChangeEventHandler<HTMLInputElement> = (event) => {
+  const updateEmbedUrlHandler = useDebounce(updateEmbedUrl, 1000, [
+    formData.time,
+  ]);
+
+  const updateFormData: ChangeEventHandler<HTMLSelectElement> = (event) => {
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -78,21 +86,23 @@ const Appointments: FC<Props> = ({
               onChange={radioUpdateFormData}
               type="radio"
               name="pay"
+              checked={formData.pay === props.id}
               {...props}
             />
           ))}
         </Col>
-        <Form.Label>
-          {formData.hours} {`heure${formData.hours > 1 ? "s" : ""}`}
-        </Form.Label>
-        <Form.Range
-          onChange={updateFormData}
-          step="1"
-          min="1"
-          max="3"
-          name="hours"
-          defaultValue={1}
-        />
+        <Col className="pb-3">
+          <Form.Label>Combien d'heures de consultation voulez-vous?</Form.Label>
+          <Form.Select
+            name="time"
+            id="time"
+            value={formData.time}
+            onChange={updateFormData}
+          >
+            <option value="1">1 heure</option>
+            <option value="1.5">1 heure 30 minutes</option>
+          </Form.Select>
+        </Col>
       </Form>
       <If condition={!embedUrl.includes("undefined")}>
         <If.Then>
@@ -108,6 +118,12 @@ const Appointments: FC<Props> = ({
             }}
             id="zcal-invite"
           ></iframe>
+        </If.Then>
+      </If>
+
+      <If condition={formData.pay === "stripe"}>
+        <If.Then>
+          <CheckoutSession pay={formData.pay} time={formData.time} />
         </If.Then>
       </If>
     </Section>

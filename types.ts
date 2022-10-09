@@ -1,4 +1,4 @@
-import type { ElementType, HTMLAttributes, FC, PropsWithChildren } from "react";
+import type { HTMLAttributes, FC, PropsWithChildren } from "react";
 
 export interface SectionProps {
   _type: string;
@@ -59,8 +59,6 @@ export interface LayoutProps extends HTMLAttributes<HTMLElement> {
   config: Config;
 }
 
-export type As = keyof JSX.IntrinsicElements | ElementType;
-
 export type SectionComponent<T extends {} = {}> = FC<SectionProps & T>;
 
 export type Component<T extends {} = {}> = FC<PropsWithChildren<T>>;
@@ -69,3 +67,5 @@ export type ImportModuleObject = Record<
   string,
   Component | SectionComponent | any
 >;
+
+export type Pay = "stripe" | "cash";

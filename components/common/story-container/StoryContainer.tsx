@@ -8,7 +8,7 @@ import Container from "react-bootstrap/Container";
 import useIntersectionObserver from "../../../hooks/useIntersectionObserver";
 import cn from "classnames";
 
-import styles from "./Section.module.scss";
+import styles from "../section/Section.module.scss";
 
 interface Props extends ContainerProps {
   type: string;

@@ -8,7 +8,7 @@ const properties: Record<string, string> = {
   ["--media-min-x-large"]: "--media-min-x-large",
 };
 
-interface Breakpoints extends Record<string, boolean> {
+export interface Breakpoints extends Record<string, boolean> {
   xSmall: boolean;
   small: boolean;
   medium: boolean;

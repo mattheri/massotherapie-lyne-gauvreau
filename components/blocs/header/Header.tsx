@@ -1,15 +1,19 @@
-import React, { FC, useEffect, useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import styles from "./Header.module.scss";
+import type { FC } from "react";
+import type { Asset, NavigationObject } from "../../../types";
+import type { ScrollCallback } from "../../../hooks";
+
+import { useEffect, useState } from "react";
+
 import HamburgerIcon from "../../icons/Hamburger";
-import { getPathFromSlug, slugParamToPath } from "../../../helpers/urlHelpers";
 import Logo from "../logo/Logo";
-import useScrollBodyLock from "../../../hooks/useScrollBodyLock";
-import useWindowScroll, {
-  ScrollCallback,
-} from "../../../hooks/useWindowScroll";
-import { Asset, NavigationObject } from "../../../types";
+
+import Link from "next/link";
+
+import { useWindowScroll, useScrollBodyLock } from "../../../hooks";
+import { getPathFromSlug, slugParamToPath } from "../../../helpers/urlHelpers";
+import { useRouter } from "next/router";
+
+import styles from "./Header.module.scss";
 
 interface Props {
   title: string;
