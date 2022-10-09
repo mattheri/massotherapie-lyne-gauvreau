@@ -39,7 +39,11 @@ const CheckoutSession: Component<Props> = ({ time, total }) => {
       }),
     });
 
+    console.log(response);
+
     const session = await response.json();
+
+    console.log(session);
 
     if (session.url) {
       window.location.href = session.url;
