@@ -4,7 +4,6 @@ import type { MouseEventHandler } from "react";
 import { Button, Heading } from "../../common";
 
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 
 import cn from "classnames";
 
@@ -39,11 +38,7 @@ const CheckoutSession: Component<Props> = ({ time, total }) => {
       }),
     });
 
-    console.log(response);
-
     const session = await response.json();
-
-    console.log(session);
 
     if (session.url) {
       window.location.href = session.url;
@@ -52,6 +47,9 @@ const CheckoutSession: Component<Props> = ({ time, total }) => {
 
   return (
     <Container fluid className="px-0">
+      <small className="text-center mx-auto d-block text-danger">
+        N&apos;oubliez pas de réserver votre rendez-vous avant de payer en ligne
+      </small>
       <Container as="section" fluid className={cn(styles.root, "px-0")}>
         <Heading as="h5" className="text-center py-2">
           Votre total: {total}$
