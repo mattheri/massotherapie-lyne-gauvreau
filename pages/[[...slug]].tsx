@@ -1,6 +1,7 @@
-import type { Config } from "../types";
+import type { Config, SectionProps } from "../types";
 import type { GetStaticProps, GetStaticPaths, NextPage } from "next";
 
+import { If } from "../components/common";
 import { Layout, RenderSections } from "../components/meta";
 
 import { NextSeo } from "next-seo";
@@ -39,7 +40,7 @@ interface Props {
   description: string;
   disallowRobots: boolean;
   openGraphImage: unknown;
-  content: unknown[];
+  content: SectionProps[];
   config: Config;
   slug: string;
 }
@@ -67,7 +68,11 @@ const Page: NextPage<Props> = ({
         }}
         noindex={disallowRobots}
       />
-      {content && <RenderSections sections={content} />}
+      <If condition={!!(content && content.length)}>
+        <If.Then>
+          <RenderSections sections={content} />
+        </If.Then>
+      </If>
     </Layout>
   );
 };
