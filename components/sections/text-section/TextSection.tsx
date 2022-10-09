@@ -1,10 +1,10 @@
-import { FC } from "react";
-import SimpleBlockContent from "../../SimpleBlockContent";
+import type { FC } from "react";
+import type { SectionProps } from "../../../types";
+
+import { Section, If } from "../../common";
+import { SimpleBlockContent } from "../../blocs";
+
 import styles from "./TextSection.module.css";
-import Section from "../../common/Section";
-import { SectionProps } from "../../../types";
-import If from "../../common/react-if/If";
-import Then from "../../common/react-if/Then";
 
 const TextSection: FC<SectionProps> = ({ heading, label, text, _type }) => {
   return (
@@ -13,9 +13,9 @@ const TextSection: FC<SectionProps> = ({ heading, label, text, _type }) => {
         <div className={styles.label}>{label}</div>
         <h2 className={styles.heading}>{heading}</h2>
         <If condition={!!text}>
-          <Then>
+          <If.Then>
             <SimpleBlockContent blocks={text} />
-          </Then>
+          </If.Then>
         </If>
       </section>
     </Section>

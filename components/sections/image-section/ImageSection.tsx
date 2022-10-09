@@ -1,12 +1,10 @@
-import React, { FC } from "react";
+import type { FC } from "react";
+import type { SectionProps } from "../../../types";
+
+import { Section, If, SanityImage } from "../../common";
+import { SimpleBlockContent, Cta } from "../../blocs";
+
 import styles from "./ImageSection.module.scss";
-import SimpleBlockContent from "../../SimpleBlockContent";
-import Cta from "../../blocs/cta/Cta";
-import Section from "../../common/Section";
-import If from "../../common/react-if/If";
-import Then from "../../common/react-if/Then";
-import { SectionProps } from "../../../types";
-import SanityImage from "../../common/SanityImage";
 
 const ImageSection: FC<SectionProps> = ({
   heading,
@@ -19,7 +17,7 @@ const ImageSection: FC<SectionProps> = ({
   return (
     <Section className={styles.root} type={_type} revealInViewport>
       <If condition={!!image}>
-        <Then>
+        <If.Then>
           <figure className={styles.content}>
             <SanityImage image={image} className={styles.image} />
             <figcaption>
@@ -28,20 +26,20 @@ const ImageSection: FC<SectionProps> = ({
                   <div className={styles.label}>{label}</div>
                   <h2 className={styles.title}>{heading}</h2>
                   <If condition={!!text}>
-                    <Then>
+                    <If.Then>
                       <SimpleBlockContent blocks={text} />
-                    </Then>
+                    </If.Then>
                   </If>
                   <If condition={!!(cta && cta.route)}>
-                    <Then>
+                    <If.Then>
                       <Cta {...cta} />
-                    </Then>
+                    </If.Then>
                   </If>
                 </div>
               </div>
             </figcaption>
           </figure>
-        </Then>
+        </If.Then>
       </If>
     </Section>
   );

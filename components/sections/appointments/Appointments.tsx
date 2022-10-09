@@ -1,12 +1,15 @@
-import { FC, useState, ChangeEventHandler, useEffect } from "react";
-import Section from "../../common/Section";
-import { SectionProps } from "../../../types";
-import Heading from "../../Heading";
+import type { SectionProps } from "../../../types";
+import type { FC, ChangeEventHandler } from "react";
+import { useState, useEffect } from "react";
+
 import Form from "react-bootstrap/Form";
-import styles from "./Appointments.module.scss";
 import Col from "react-bootstrap/Col";
+
+import { Section, Heading, If } from "../../common";
+
 import debounce from "lodash.debounce";
 
+import styles from "./Appointments.module.scss";
 interface Props extends SectionProps {
   title: string;
   appointmentIdFirst: string;
@@ -91,18 +94,22 @@ const Appointments: FC<Props> = ({
           defaultValue={1}
         />
       </Form>
-      <iframe
-        src={embedUrl}
-        loading="lazy"
-        style={{
-          border: "none",
-          minWidth: "320px",
-          width: "100%",
-          minHeight: "544px",
-          height: "700px",
-        }}
-        id="zcal-invite"
-      ></iframe>
+      <If condition={!embedUrl.includes("undefined")}>
+        <If.Then>
+          <iframe
+            src={embedUrl}
+            loading="lazy"
+            style={{
+              border: "none",
+              minWidth: "320px",
+              width: "100%",
+              minHeight: "544px",
+              height: "700px",
+            }}
+            id="zcal-invite"
+          ></iframe>
+        </If.Then>
+      </If>
     </Section>
   );
 };

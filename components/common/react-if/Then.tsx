@@ -1,9 +1,10 @@
-import { FC, PropsWithChildren, useContext } from "react";
+import type { Component } from "../../../types";
+
+import { useContext } from "react";
+
 import IfContext from "./IfContext";
 
-interface Props extends PropsWithChildren {}
-
-const Then: FC<Props> = ({ children }) => {
+const Then: Component = ({ children }) => {
   const { condition } = useContext(IfContext);
 
   return condition ? <>{children}</> : null;

@@ -1,11 +1,15 @@
-import { FC } from "react";
+import type { FC } from "react";
+import type { NavigationObject, SectionProps } from "../../../types";
+
+import { Section } from "../../common";
+import { SimpleBlockContent } from "..";
+
 import Link from "next/link";
-import { useRouter } from "next/router";
-import styles from "./Footer.module.scss";
-import SimpleBlockContent from "../../SimpleBlockContent";
+
 import { getPathFromSlug, slugParamToPath } from "../../../helpers/urlHelpers";
-import { NavigationObject, SectionProps } from "../../../types";
-import Section from "../../common/Section";
+import { useRouter } from "next/router";
+
+import styles from "./Footer.module.scss";
 
 interface Props {
   navItems: NavigationObject[];

@@ -1,14 +1,16 @@
-import { GetStaticProps, GetStaticPaths, NextPage } from "next";
+import type { Config } from "../types";
+import type { GetStaticProps, GetStaticPaths, NextPage } from "next";
+
+import { Layout, RenderSections } from "../components/meta";
+
+import { NextSeo } from "next-seo";
+
 import {
   getInitialConfig,
   getPaths,
   getSlugData,
 } from "../helpers/clientHelpers";
-import Layout from "../components/Layout";
-import RenderSections from "../components/RenderSections";
 import { getOpenGraphImages } from "../helpers/imageHelpers";
-import { NextSeo } from "next-seo";
-import { Config } from "../types";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const initialConfig = await getInitialConfig();

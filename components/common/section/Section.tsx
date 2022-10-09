@@ -2,7 +2,7 @@ import { FC } from "react";
 import Container, { ContainerProps } from "react-bootstrap/Container";
 import cn from "classnames";
 import styles from "./Section.module.scss";
-import StorySecton from "./StoryContainer";
+import StorySecton from "../story-container/StoryContainer";
 
 interface Props extends ContainerProps {
   type: string;

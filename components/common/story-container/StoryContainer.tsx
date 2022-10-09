@@ -1,8 +1,14 @@
-import { FC, useEffect } from "react";
-import Container, { ContainerProps } from "react-bootstrap/Container";
+import type { FC } from "react";
+import type { ContainerProps } from "react-bootstrap/Container";
+
+import { useEffect } from "react";
+
+import Container from "react-bootstrap/Container";
+
+import useIntersectionObserver from "../../../hooks/useIntersectionObserver";
 import cn from "classnames";
+
 import styles from "./Section.module.scss";
-import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 
 interface Props extends ContainerProps {
   type: string;

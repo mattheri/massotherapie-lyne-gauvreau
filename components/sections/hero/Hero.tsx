@@ -1,16 +1,14 @@
-import { FC } from "react";
-import styles from "./Hero.module.scss";
-import SimpleBlockContent from "../../SimpleBlockContent";
-import { Cta } from "../../blocs";
-import Section from "../../common/Section";
-import cn from "classnames";
-import If from "../../common/react-if/If";
-import Then from "../../common/react-if/Then";
-import { Route, SectionProps } from "../../../types";
-import Container from "react-bootstrap/Container";
-import SanityImage from "../../common/SanityImage";
+import type { Route, SectionComponent } from "../../../types";
 
-interface Props extends SectionProps {
+import { SanityImage, Section, If } from "../../common";
+import { Cta, SimpleBlockContent } from "../../blocs";
+
+import Container from "react-bootstrap/Container";
+
+import cn from "classnames";
+
+import styles from "./Hero.module.scss";
+interface Props {
   ctas?: {
     _key: string;
     title: string;
@@ -19,7 +17,7 @@ interface Props extends SectionProps {
   }[];
 }
 
-const Hero: FC<Props> = ({
+const Hero: SectionComponent<Props> = ({
   heading,
   backgroundImage,
   tagline,
@@ -38,19 +36,19 @@ const Hero: FC<Props> = ({
         <h1 className={styles.title}>{heading}</h1>
         <div className={styles.tagline}>
           <If condition={!!tagline}>
-            <Then>
+            <If.Then>
               <SimpleBlockContent blocks={tagline} />
-            </Then>
+            </If.Then>
           </If>
         </div>
         <If condition={!!(ctas && ctas.length)}>
-          <Then>
+          <If.Then>
             <div className={styles.ctas}>
               {ctas?.map((cta) => (
                 <Cta {...cta} key={cta._key} />
               ))}
             </div>
-          </Then>
+          </If.Then>
         </If>
       </Container>
     </Section>
