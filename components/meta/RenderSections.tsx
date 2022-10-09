@@ -2,13 +2,13 @@ import type {
   ImportModuleObject,
   SectionComponent,
   SectionProps,
-} from "../types";
+} from "../../types";
 
 import { FC, Fragment } from "react";
 
-import * as SectionComponents from "./sections";
+import * as SectionComponents from "../sections";
 
-import { capitalize } from "../helpers/stringHelpers";
+import { capitalize } from "../../helpers/stringHelpers";
 
 const resolveSections = (section: SectionProps) => {
   const Section = (SectionComponents as ImportModuleObject)[

@@ -1,7 +1,7 @@
 import type { FC } from "react";
-import type { LayoutProps } from "../types";
+import type { LayoutProps } from "../../types";
 
-import { Header, Footer } from "../components/blocs";
+import { Header, Footer } from "../../components/blocs";
 
 import Head from "next/head";
 import Container from "react-bootstrap/Container";
