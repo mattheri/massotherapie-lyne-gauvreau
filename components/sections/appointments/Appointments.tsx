@@ -11,7 +11,7 @@ import Container from "react-bootstrap/Container";
 
 import { Section, Heading, If } from "../../common";
 
-import { useDebounce } from "../../../hooks";
+import { useBreakpoints, useDebounce } from "../../../hooks";
 import cn from "classnames";
 
 import styles from "./Appointments.module.scss";
@@ -63,6 +63,7 @@ const Appointments: SectionComponent<Props> = ({
   const [embedUrl, setEmbedUrl] = useState(
     createEmbedUrl(appointments[formData.time])
   );
+  const [height, setHeight] = useState(850);
 
   const updateEmbedUrl = () =>
     setEmbedUrl(createEmbedUrl(appointments[formData.time]));
@@ -84,6 +85,20 @@ const Appointments: SectionComponent<Props> = ({
   useEffect(() => {
     updateEmbedUrlHandler();
   }, [formData, updateEmbedUrlHandler]);
+
+  const { xSmall, small, medium, large, xLarge } = useBreakpoints();
+
+  const getHeight = () => {
+    if (large) return 625;
+    if (medium) return 900;
+
+    return 850;
+  };
+
+  useEffect(() => {
+    setHeight(getHeight());
+    console.log("height", xSmall, small, medium, large, xLarge);
+  }, [xSmall, small, medium, large, xLarge]);
 
   return (
     <Section type={_type}>
@@ -126,7 +141,7 @@ const Appointments: SectionComponent<Props> = ({
               minWidth: "320px",
               width: "100%",
               minHeight: "544px",
-              height: "625px",
+              height: `${getHeight()}px`,
             }}
             id="zcal-invite"
           ></iframe>
