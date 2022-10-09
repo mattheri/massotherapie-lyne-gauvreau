@@ -43,11 +43,11 @@ const Hero: SectionComponent<Props> = ({
         </div>
         <If condition={!!(ctas && ctas.length)}>
           <If.Then>
-            <div className={styles.ctas}>
+            <section className={styles.ctas}>
               {ctas?.map((cta) => (
                 <Cta {...cta} key={cta._key} />
               ))}
-            </div>
+            </section>
           </If.Then>
         </If>
       </Container>

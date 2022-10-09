@@ -3,15 +3,19 @@ import type { ChangeEventHandler } from "react";
 
 import { useState, useEffect } from "react";
 
+import CheckoutSession from "../../blocs/checkout-session/CheckoutSession";
+
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
 
 import { Section, Heading, If } from "../../common";
 
 import { useDebounce } from "../../../hooks";
+import cn from "classnames";
 
 import styles from "./Appointments.module.scss";
-import CheckoutSession from "../../blocs/checkout-session/CheckoutSession";
+
 interface Props {
   title: string;
   appointmentIdFirst: string;
@@ -25,7 +29,8 @@ const createEmbedUrl = (id: string) =>
 const formInputs = [
   { label: "J'aimerais payer en avance", id: "stripe" },
   {
-    label: "J'aimerais payer en personne (argent comptant seulement)",
+    label:
+      "J'aimerais payer en personne (argent comptant ou virement Interac seulement)",
     id: "cash",
   },
 ];
@@ -44,6 +49,11 @@ const Appointments: SectionComponent<Props> = ({
   const appointments: Record<string, string> = {
     "1": appointmentIdFirst,
     "1.5": appointmentIdSecond,
+  };
+
+  const total: Record<string, string> = {
+    "1": "60.00",
+    "1.5": "90.00",
   };
 
   const [formData, setFormData] = useState<FormData>({
@@ -116,7 +126,7 @@ const Appointments: SectionComponent<Props> = ({
               minWidth: "320px",
               width: "100%",
               minHeight: "544px",
-              height: "700px",
+              height: "625px",
             }}
             id="zcal-invite"
           ></iframe>
@@ -125,7 +135,12 @@ const Appointments: SectionComponent<Props> = ({
 
       <If condition={formData.pay === "stripe"}>
         <If.Then>
-          <CheckoutSession pay={formData.pay} time={formData.time} />
+          <Container fluid className={cn(styles.form, "px-0")}>
+            <CheckoutSession
+              time={formData.time}
+              total={total[formData.time]}
+            />
+          </Container>
         </If.Then>
       </If>
     </Section>

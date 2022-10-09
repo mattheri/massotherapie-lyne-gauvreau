@@ -7,8 +7,14 @@ const errors = {
 };
 
 const items: Record<string, string | undefined> = {
-  "1": process.env.ONE_HOUR_PRICE_ID,
-  "1.5": process.env.ONE_HOUR_PRICE_ID,
+  "1":
+    process.env.NODE_ENV === "development"
+      ? process.env.ONE_HOUR_PRICE_ID_TEST
+      : process.env.ONE_HOUR_PRICE_ID_LIVE,
+  "1.5":
+    process.env.NODE_ENV === "development"
+      ? process.env.ONE_HOUR_PRICE_ID_TEST
+      : process.env.ONE_HOUR_PRICE_ID_LIVE,
 };
 
 export default async function handler(
@@ -16,35 +22,39 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    const item = req.body.item;
+    try {
+      const item = req.body.item;
 
-    const secretKey = process.env.STRIPE_SECRET_KEY;
+      const secretKey = process.env.STRIPE_PRIVATE_KEY;
 
-    if (!secretKey) return res.status(500).json({ error: errors.unknown });
+      if (!secretKey) return res.status(500).json({ error: errors.unknown });
 
-    const stripe = new Stripe(secretKey, {
-      apiVersion: "2022-08-01",
-    });
+      const stripe = new Stripe(secretKey, {
+        apiVersion: "2022-08-01",
+      });
 
-    const checkoutSession = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          price: items[item.time],
-          quantity: 1,
-        },
-      ],
-      mode: "payment",
-      success_url: `${req.headers.origin}/success`,
-      cancel_url: `${req.headers.origin}/cancel`,
-      automatic_tax: { enabled: true },
-    });
+      const checkoutSession = await stripe.checkout.sessions.create({
+        line_items: [
+          {
+            price: items[item.time],
+            quantity: 1,
+          },
+        ],
+        mode: "payment",
+        success_url: `${req.headers.origin}/success`,
+        cancel_url: `${req.headers.origin}`,
+        automatic_tax: { enabled: true },
+      });
 
-    console.log(checkoutSession);
+      if (!checkoutSession || !checkoutSession.url)
+        throw new Error(errors.unknown);
 
-    if (!checkoutSession || !checkoutSession.url)
-      return res.status(500).json({ error: errors.unknown });
+      res.status(200).json({ url: checkoutSession.url });
+    } catch (e) {
+      const error = e as Error;
 
-    res.redirect(303, checkoutSession.url);
+      res.status(500).json({ error });
+    }
   } else {
     res.setHeader("Allow", "POST");
     res.status(405).end(errors.invalidMethod);

@@ -1,17 +1,21 @@
-import type { Component, Pay } from "../../../types";
+import type { Component } from "../../../types";
 import type { FormEventHandler } from "react";
 
-import { Button } from "../../common";
+import { Button, Heading } from "../../common";
 
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 
+import cn from "classnames";
+
+import styles from "./CheckoutSession.module.scss";
+
 interface Props {
-  pay: Pay;
   time: string;
+  total: string;
 }
 
-const CheckoutSession: Component<Props> = ({ pay, time }) => {
+const CheckoutSession: Component<Props> = ({ time, total }) => {
   const onSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     const { loadStripe } = await import("@stripe/stripe-js");
 
@@ -35,18 +39,23 @@ const CheckoutSession: Component<Props> = ({ pay, time }) => {
       }),
     });
 
-    console.log(response);
-
     const session = await response.json();
 
-    console.log(session);
+    if (session.url) {
+      window.location.href = session.url;
+    }
   };
 
   return (
-    <Container fluid>
+    <Container fluid className="px-0">
       <Form onSubmit={onSubmit}>
-        <Container as="section" fluid>
-          <Button type="submit">Checkout</Button>
+        <Container as="section" fluid className={cn(styles.root, "px-0")}>
+          <Heading as="h5" className="text-center py-2">
+            Votre total: {total}$
+          </Heading>
+          <Button type="submit" className={styles.button}>
+            Payer en ligne
+          </Button>
         </Container>
       </Form>
     </Container>

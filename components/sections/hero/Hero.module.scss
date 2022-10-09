@@ -44,11 +44,15 @@
 
 .title {
   position: relative;
-  font-weight: 100;
+  font-weight: 400;
   font-size: var(--font-title2-size);
   line-height: var(--font-title2-line-height);
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
   margin: 0;
+
+  &:not(:has(~ section)) {
+    margin-bottom: 8rem;
+  }
 
   @media screen and (min-width: 675px) {
     font-size: var(--font-title1-size);

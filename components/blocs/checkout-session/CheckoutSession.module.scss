@@ -1,0 +1,11 @@
+.root {
+  background-color: var(--color-white);
+  border: 1px solid var(--main-brand-color);
+  border-radius: 0.5rem;
+}
+
+.button {
+  width: 100%;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
