@@ -15,33 +15,38 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log(req.method);
+  if (req.method === "POST") {
+    const item = req.body.item;
 
-  const item = req.body.item;
+    const secretKey = process.env.STRIPE_SECRET_KEY;
 
-  const secretKey = process.env.STRIPE_SECRET_KEY;
+    if (!secretKey) return res.status(500).json({ error: errors.unknown });
 
-  if (!secretKey) return res.status(500).json({ error: errors.unknown });
+    const stripe = new Stripe(secretKey, {
+      apiVersion: "2022-08-01",
+    });
 
-  const stripe = new Stripe(secretKey, {
-    apiVersion: "2022-08-01",
-  });
+    const checkoutSession = await stripe.checkout.sessions.create({
+      line_items: [
+        {
+          price: items[item.time],
+          quantity: 1,
+        },
+      ],
+      mode: "payment",
+      success_url: `${req.headers.origin}/success`,
+      cancel_url: `${req.headers.origin}/cancel`,
+      automatic_tax: { enabled: true },
+    });
 
-  const checkoutSession = await stripe.checkout.sessions.create({
-    line_items: [
-      {
-        price: items[item.time],
-        quantity: 1,
-      },
-    ],
-    mode: "payment",
-    success_url: `${req.headers.origin}/success`,
-    cancel_url: `${req.headers.origin}/cancel`,
-    automatic_tax: { enabled: true },
-  });
+    console.log(checkoutSession);
 
-  if (!checkoutSession || !checkoutSession.url)
-    return res.status(500).json({ error: errors.unknown });
+    if (!checkoutSession || !checkoutSession.url)
+      return res.status(500).json({ error: errors.unknown });
 
-  res.redirect(303, checkoutSession.url);
+    res.redirect(303, checkoutSession.url);
+  } else {
+    res.setHeader("Allow", "POST");
+    res.status(405).end(errors.invalidMethod);
+  }
 }

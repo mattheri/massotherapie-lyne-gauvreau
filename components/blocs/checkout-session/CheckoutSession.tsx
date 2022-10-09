@@ -6,22 +6,24 @@ import { Button } from "../../common";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 
-import { loadStripe } from "@stripe/stripe-js";
-
 interface Props {
   pay: Pay;
   time: string;
 }
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY || ""
-);
-
 const CheckoutSession: Component<Props> = ({ pay, time }) => {
   const onSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
+    const { loadStripe } = await import("@stripe/stripe-js");
+
+    const publicKey = process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY;
+
+    if (!publicKey) return;
+
+    const stripe = await loadStripe(publicKey);
+
     event.preventDefault();
 
-    await fetch("/api/checkout-session", {
+    const response = await fetch("/api/checkout_session", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,6 +34,12 @@ const CheckoutSession: Component<Props> = ({ pay, time }) => {
         },
       }),
     });
+
+    console.log(response);
+
+    const session = await response.json();
+
+    console.log(session);
   };
 
   return (
