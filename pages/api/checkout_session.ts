@@ -27,11 +27,15 @@ export default async function handler(
 
       const secretKey = process.env.STRIPE_PRIVATE_KEY;
 
+      console.log(secretKey);
+
       if (!secretKey) return res.status(500).json({ error: errors.unknown });
 
       const stripe = new Stripe(secretKey, {
         apiVersion: "2022-08-01",
       });
+
+      console.log(stripe);
 
       const checkoutSession = await stripe.checkout.sessions.create({
         line_items: [
@@ -45,6 +49,8 @@ export default async function handler(
         cancel_url: `${req.headers.origin}`,
         automatic_tax: { enabled: true },
       });
+
+      console.log(checkoutSession);
 
       if (!checkoutSession || !checkoutSession.url)
         throw new Error(errors.unknown);
