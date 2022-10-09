@@ -1,6 +1,10 @@
-import React, { FC } from "react";
+import type { Asset } from "../../../types";
+import type { FC } from "react";
+
+import { SanityImage } from "../../common";
+
 import SVG from "react-inlinesvg";
-import { Asset } from "../../../types";
+
 import styles from "./Logo.module.scss";
 
 interface Props {
@@ -16,7 +20,7 @@ const Logo: FC<Props> = ({ logo }) => {
     return <SVG src={logo.asset.url} className={styles.root} />;
   }
 
-  return <img src={logo.asset.url} alt={logo.title} className={styles.root} />;
+  return <SanityImage image={logo.asset} />;
 };
 
 export default Logo;

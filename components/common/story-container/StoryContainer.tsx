@@ -27,7 +27,7 @@ const StorySecton: FC<Props> = ({
 
   useEffect(() => {
     if (entry.isIntersecting) disconnect();
-  }, [entry.isIntersecting]);
+  }, [entry.isIntersecting, disconnect]);
 
   return (
     <Container

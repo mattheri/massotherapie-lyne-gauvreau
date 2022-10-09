@@ -73,7 +73,7 @@ const Appointments: SectionComponent<Props> = ({
 
   useEffect(() => {
     updateEmbedUrlHandler();
-  }, [formData]);
+  }, [formData, updateEmbedUrlHandler]);
 
   return (
     <Section type={_type}>
@@ -92,7 +92,9 @@ const Appointments: SectionComponent<Props> = ({
           ))}
         </Col>
         <Col className="pb-3">
-          <Form.Label>Combien d'heures de consultation voulez-vous?</Form.Label>
+          <Form.Label>
+            Combien d&apos;heures de consultation voulez-vous?
+          </Form.Label>
           <Form.Select
             name="time"
             id="time"
