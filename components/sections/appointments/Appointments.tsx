@@ -97,7 +97,6 @@ const Appointments: SectionComponent<Props> = ({
 
   useEffect(() => {
     setHeight(getHeight());
-    console.log("height", xSmall, small, medium, large, xLarge);
   }, [xSmall, small, medium, large, xLarge]);
 
   return (
