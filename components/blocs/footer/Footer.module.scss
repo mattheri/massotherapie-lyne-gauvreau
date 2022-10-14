@@ -1,8 +1,9 @@
 .root {
-  color: var(--color-black, #333);
+  color: var(--ebb);
   font-size: var(--font-small-size);
   line-height: var(--font-small-line-height);
   padding: 2rem 0;
+  background-color: var(--ebony-clay);
 }
 
 .items {

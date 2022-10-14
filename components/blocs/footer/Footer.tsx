@@ -1,13 +1,15 @@
 import type { FC } from "react";
 import type { NavigationObject, SectionProps } from "../../../types";
 
-import { Section } from "../../common";
+import Container from "react-bootstrap/Container";
+
 import { SimpleBlockContent } from "..";
 
 import Link from "next/link";
 
 import { getPathFromSlug, slugParamToPath } from "../../../helpers/urlHelpers";
 import { useRouter } from "next/router";
+import cn from "classnames";
 
 import styles from "./Footer.module.scss";
 
@@ -20,7 +22,7 @@ const Footer: FC<Props> = ({ navItems, text }) => {
   const router = useRouter();
 
   return (
-    <Section className={styles.root} as="footer" type="footer">
+    <Container className={cn(styles.root, "px-0")} as="footer" fluid>
       <nav>
         <ul className={styles.items}>
           {navItems &&
@@ -45,7 +47,7 @@ const Footer: FC<Props> = ({ navItems, text }) => {
       <div className={styles.text}>
         <SimpleBlockContent blocks={text} />
       </div>
-    </Section>
+    </Container>
   );
 };
 

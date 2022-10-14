@@ -1,18 +1,18 @@
 import type { Pay, SectionComponent } from "../../../types";
 import type { ChangeEventHandler } from "react";
 
-import { useState, useEffect } from "react";
-
-import CheckoutSession from "../../blocs/checkout-session/CheckoutSession";
+import { useState, useEffect, Suspense } from "react";
 
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import Spinner from "react-bootstrap/Spinner";
 
 import { Section, Heading, If } from "../../common";
 
 import { useBreakpoints, useDebounce } from "../../../hooks";
 import cn from "classnames";
+import dynamic from "next/dynamic";
 
 import styles from "./Appointments.module.scss";
 
@@ -34,6 +34,11 @@ const formInputs = [
     id: "cash",
   },
 ];
+
+const CheckoutSession = dynamic(
+  () => import("../../blocs/checkout-session/CheckoutSession"),
+  { ssr: true, suspense: true }
+);
 
 interface FormData {
   pay: Pay;
@@ -130,6 +135,7 @@ const Appointments: SectionComponent<Props> = ({
           </Form.Select>
         </Col>
       </Form>
+
       <If condition={!embedUrl.includes("undefined")}>
         <If.Then>
           <iframe
@@ -140,7 +146,7 @@ const Appointments: SectionComponent<Props> = ({
               minWidth: "320px",
               width: "100%",
               minHeight: "544px",
-              height: `${getHeight()}px`,
+              height: `${height}px`,
             }}
             id="zcal-invite"
           ></iframe>
@@ -150,10 +156,12 @@ const Appointments: SectionComponent<Props> = ({
       <If condition={formData.pay === "stripe"}>
         <If.Then>
           <Container fluid className={cn(styles.form, "px-0")}>
-            <CheckoutSession
-              time={formData.time}
-              total={total[formData.time]}
-            />
+            <Suspense fallback={<Spinner animation="border" />}>
+              <CheckoutSession
+                time={formData.time}
+                total={total[formData.time]}
+              />
+            </Suspense>
           </Container>
         </If.Then>
       </If>

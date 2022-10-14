@@ -1,9 +1,11 @@
 import type { Component } from "../../../types";
 import type { MouseEventHandler } from "react";
 
-import { Button, Heading } from "../../common";
+import { useState } from "react";
 
 import Container from "react-bootstrap/Container";
+
+import { Button, Heading } from "../../common";
 
 import cn from "classnames";
 
@@ -15,7 +17,12 @@ interface Props {
 }
 
 const CheckoutSession: Component<Props> = ({ time, total }) => {
+  const [isPending, setIsPending] = useState(false);
+
   const onSubmit: MouseEventHandler<HTMLButtonElement> = async (event) => {
+    event.preventDefault();
+    setIsPending(true);
+
     const { loadStripe } = await import("@stripe/stripe-js");
 
     const publicKey = process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY;
@@ -23,8 +30,6 @@ const CheckoutSession: Component<Props> = ({ time, total }) => {
     if (!publicKey) return;
 
     const stripe = await loadStripe(publicKey);
-
-    event.preventDefault();
 
     const response = await fetch("/api/checkout_session", {
       method: "POST",
@@ -54,7 +59,12 @@ const CheckoutSession: Component<Props> = ({ time, total }) => {
         <Heading as="h5" className="text-center py-2">
           Votre total: {total}$
         </Heading>
-        <Button onClick={onSubmit} className={styles.button}>
+        <Button
+          onClick={onSubmit}
+          className={cn(styles.button, {
+            [styles.pending]: isPending,
+          })}
+        >
           Payer en ligne
         </Button>
       </Container>
