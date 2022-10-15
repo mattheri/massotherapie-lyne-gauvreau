@@ -14,6 +14,7 @@ import { getPathFromSlug, slugParamToPath } from "../../../helpers/urlHelpers";
 import { useRouter } from "next/router";
 
 import styles from "./Header.module.scss";
+import { Button } from "../../common";
 
 interface Props {
   title: string;
@@ -73,14 +74,18 @@ const Header: FC<Props> = ({ title = "Missing title", navItems, logo }) => {
                   slugParamToPath(router.query.slug) === slug.current;
                 return (
                   <li key={_id} className={styles.navItem}>
-                    <Link href={getPathFromSlug(slug.current)}>
-                      <a
-                        data-is-active={isActive ? "true" : "false"}
-                        aria-current={isActive}
-                      >
-                        {title}
-                      </a>
-                    </Link>
+                    <Button
+                      link={{
+                        href: getPathFromSlug(slug.current),
+                        data: {
+                          ["data-is-active"]: isActive ? "true" : "false",
+                          ["aria-current"]: isActive,
+                        },
+                      }}
+                      className={styles.navLink}
+                    >
+                      {title}
+                    </Button>
                   </li>
                 );
               })}

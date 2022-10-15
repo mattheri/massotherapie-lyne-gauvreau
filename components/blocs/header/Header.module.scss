@@ -54,6 +54,8 @@
 .nav {
   @media only screen and (min-width: 675px) {
     flex: 1;
+    display: flex;
+    justify-content: flex-end;
   }
 }
 
@@ -65,6 +67,7 @@
     display: flex;
     justify-content: flex-end;
     padding: 0 1rem;
+    margin: auto 0;
   }
 }
 
@@ -105,7 +108,7 @@
 .navItem {
   display: flex;
   white-space: nowrap;
-  align-items: stretch;
+  align-items: center;
   line-height: calc(var(--font-base-line-height) * 1.5rem);
 }
 
@@ -171,5 +174,11 @@
 
   @media (--media-min-medium) {
     display: none;
+  }
+}
+
+.navLink {
+  &::after {
+    content: none;
   }
 }

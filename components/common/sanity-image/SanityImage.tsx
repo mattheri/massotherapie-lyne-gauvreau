@@ -31,6 +31,11 @@ const SanityImage: FC<Props> = ({
 }) => {
   const imageProps: any = useNextSanityImage(client, image);
 
+  if (layout === "fill") {
+    delete imageProps.width;
+    delete imageProps.height;
+  }
+
   return (
     <Suspense>
       {layout === "raw" ? (
@@ -39,6 +44,7 @@ const SanityImage: FC<Props> = ({
           {...rest}
           className={className}
           layout="raw"
+          alt={image.alt || ""}
         />
       ) : (
         <Image
@@ -46,7 +52,7 @@ const SanityImage: FC<Props> = ({
           {...rest}
           layout={layout}
           className={className}
-          alt={image.alt}
+          alt={image.alt || ""}
         />
       )}
     </Suspense>

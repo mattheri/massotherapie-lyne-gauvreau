@@ -4,6 +4,8 @@ import type { SectionProps } from "../../../types";
 import { Section, If, SanityImage } from "../../common";
 import { SimpleBlockContent, Cta } from "../../blocs";
 
+import cn from "classnames";
+
 import styles from "./ImageSection.module.scss";
 
 const ImageSection: FC<SectionProps> = ({
@@ -12,6 +14,9 @@ const ImageSection: FC<SectionProps> = ({
   text,
   image,
   cta,
+  imagePosition,
+  textAlignment,
+  textPosition,
   _type,
 }) => {
   return (
@@ -19,9 +24,23 @@ const ImageSection: FC<SectionProps> = ({
       <If condition={!!image}>
         <If.Then>
           <figure className={styles.content}>
-            <SanityImage image={image} className={styles.image} />
+            <SanityImage
+              image={image}
+              className={cn(styles.image, {
+                [styles.imageRight]: imagePosition === "right",
+              })}
+            />
             <figcaption>
-              <div className={styles.caption}>
+              <div
+                className={cn(styles.caption, {
+                  [styles.contentRight]: textAlignment === "right",
+                  [styles.contentLeft]: textAlignment === "left",
+                  [styles.contentCenter]: textAlignment === "center",
+                  [styles.positionTop]: textPosition === "top",
+                  [styles.positionCenter]: textPosition === "center",
+                  [styles.positionBottom]: textPosition === "bottom",
+                })}
+              >
                 <div className={styles.captionBox}>
                   <div className={styles.label}>{label}</div>
                   <h2 className={styles.title}>{heading}</h2>

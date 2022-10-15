@@ -4,7 +4,7 @@ import type { SectionProps } from "../../../types";
 import { Section, If } from "../../common";
 import { SimpleBlockContent } from "../../blocs";
 
-import styles from "./TextSection.module.css";
+import styles from "./TextSection.module.scss";
 
 const TextSection: FC<SectionProps> = ({ heading, label, text, _type }) => {
   return (
