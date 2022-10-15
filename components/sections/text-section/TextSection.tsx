@@ -6,9 +6,20 @@ import { SimpleBlockContent } from "../../blocs";
 
 import styles from "./TextSection.module.scss";
 
-const TextSection: FC<SectionProps> = ({ heading, label, text, _type }) => {
+const TextSection: FC<SectionProps> = ({
+  heading,
+  label,
+  text,
+  _type,
+  revealInViewport,
+}) => {
   return (
-    <Section revealInViewport as="div" className={styles.root} type={_type}>
+    <Section
+      revealInViewport={revealInViewport}
+      as="div"
+      className={styles.root}
+      type={_type}
+    >
       <section className={styles.article}>
         <div className={styles.label}>{label}</div>
         <h2 className={styles.heading}>{heading}</h2>

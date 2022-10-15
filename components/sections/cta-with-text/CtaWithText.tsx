@@ -15,9 +15,15 @@ interface Props {
   }[];
 }
 
-const CtaWithText: SectionComponent<Props> = ({ _type, title, text, ctas }) => {
+const CtaWithText: SectionComponent<Props> = ({
+  _type,
+  title,
+  text,
+  ctas,
+  revealInViewport,
+}) => {
   return (
-    <Section type={_type}>
+    <Section type={_type} revealInViewport={revealInViewport}>
       <Container fluid className="px-0">
         <If condition={!!title}>
           <If.Then>

@@ -17,10 +17,15 @@ const ImageSection: FC<SectionProps> = ({
   imagePosition,
   textAlignment,
   textPosition,
+  revealInViewport,
   _type,
 }) => {
   return (
-    <Section className={styles.root} type={_type} revealInViewport>
+    <Section
+      className={styles.root}
+      type={_type}
+      revealInViewport={revealInViewport}
+    >
       <If condition={!!image}>
         <If.Then>
           <figure className={styles.content}>
