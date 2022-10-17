@@ -4,17 +4,18 @@ import type { ScrollCallback } from "../../../hooks";
 
 import { useEffect, useState } from "react";
 
+import { Button } from "../../common";
 import HamburgerIcon from "../../icons/Hamburger";
 import Logo from "../logo/Logo";
 
 import Link from "next/link";
+import Container from "react-bootstrap/Container";
 
 import { useWindowScroll, useScrollBodyLock } from "../../../hooks";
 import { getPathFromSlug, slugParamToPath } from "../../../helpers/urlHelpers";
 import { useRouter } from "next/router";
 
 import styles from "./Header.module.scss";
-import { Button } from "../../common";
 
 interface Props {
   title: string;
@@ -54,7 +55,7 @@ const Header: FC<Props> = ({ title = "Missing title", navItems, logo }) => {
       data-show-nav={showNav}
       data-hide-nav={isHidden}
     >
-      <div className={styles.content}>
+      <Container className={styles.content}>
         <h1 className={styles.branding}>
           <Link href={"/"}>
             <a title={title}>
@@ -91,7 +92,7 @@ const Header: FC<Props> = ({ title = "Missing title", navItems, logo }) => {
               })}
           </ul>
         </nav>
-      </div>
+      </Container>
     </header>
   );
 };
