@@ -28,12 +28,19 @@
 .text {
   text-align: center;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  max-width: 22em;
+  margin: 0 auto;
+
+  @media screen and (min-width: 675px) {
+    max-width: var(--width-small);
+  }
 }
 
 .text p {
-  margin: 1rem 0;
+  margin: 0.5rem 0;
 }
 
 .text a {
