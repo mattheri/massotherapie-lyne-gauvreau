@@ -7,6 +7,7 @@ import StorySecton from "../story-container/StoryContainer";
 interface Props extends ContainerProps {
   type: string;
   revealInViewport?: boolean;
+  root?: Omit<ContainerProps, "as" | "fluid">;
 }
 
 const Section: FC<Props> = ({
@@ -15,10 +16,16 @@ const Section: FC<Props> = ({
   children,
   revealInViewport,
   className,
+  root: { className: rootClassName, ...rootProps } = {},
   ...rest
 }) => {
   return (
-    <Container fluid as={as} className={cn(styles.root, "px-0")}>
+    <Container
+      fluid
+      as={as}
+      className={cn(styles.root, rootClassName, "px-0")}
+      {...rootProps}
+    >
       {revealInViewport ? (
         <StorySecton type={type} {...rest} className={className}>
           {children}
