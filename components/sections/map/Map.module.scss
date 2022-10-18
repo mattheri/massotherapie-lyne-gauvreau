@@ -1,7 +1,7 @@
 .root {
   height: 100%;
   width: 100%;
-  min-height: 50vh;
+  min-height: 75vh;
   max-width: 100%;
   padding: 0 !important;
 
@@ -15,7 +15,9 @@
   padding-top: 0 !important;
   padding-bottom: 0 !important;
   position: relative;
+}
 
+.link {
   &::after {
     content: "";
     position: absolute;

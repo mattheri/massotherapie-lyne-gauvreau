@@ -1,15 +1,15 @@
 import { FC } from "react";
 
 interface Props {
-  node: {
+  value: {
     html?: string;
     [key: string]: unknown;
   };
   [key: string]: unknown;
 }
 
-const EmbedHTML: FC<Props> = ({ node }) => {
-  const { html } = node;
+const EmbedHTML: FC<Props> = ({ value }) => {
+  const html = value?.html;
 
   return html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null;
 };
