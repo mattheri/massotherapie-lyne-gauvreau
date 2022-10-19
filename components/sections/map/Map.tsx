@@ -9,6 +9,8 @@ import Script from "next/script";
 import Link from "next/link";
 
 import styles from "./Map.module.scss";
+import useLocation from "../../../hooks/useLocation";
+import useInitMap from "../../../hooks/useInitMap";
 
 declare global {
   interface Window {
@@ -18,74 +20,22 @@ declare global {
 }
 
 const Map: SectionComponent = ({ _type, revealInViewport, location }) => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [href, setHref] = useState("#");
 
-  const initMap = useCallback(
-    (element: HTMLElement) => {
-      const center = {
-        lat: location.lat,
-        lng: location.lng,
-      };
+  useInitMap(location, ref);
 
-      const zoom = 17;
-      const disableDefaultUI = true;
-      const zoomControl = false;
-      const mapTypeControl = false;
-      const scaleControl = false;
-      const streetViewControl = false;
-      const rotateControl = false;
-      const fullscreenControl = false;
-
-      return () => {
-        const map = new window.google.maps.Map(element, {
-          center,
-          zoom,
-          disableDefaultUI,
-          zoomControl,
-          mapTypeControl,
-          scaleControl,
-          streetViewControl,
-          rotateControl,
-          fullscreenControl,
-        });
-
-        new window.google.maps.Marker({
-          position: center,
-          map,
-        });
-      };
-    },
-    [location]
-  );
-
-  const requestLocation: () => Promise<
-    GeolocationPosition | PositionErrorCallback
-  > = useCallback(() => {
-    return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(resolve, reject);
-    });
-  }, []);
+  const coords = useLocation();
 
   useEffect(() => {
-    const element = ref.current;
+    if (!coords) return;
 
-    if (!element) return;
+    const { lat, lng } = coords;
 
-    window.initMap = initMap(element);
-  }, [ref, initMap]);
-
-  useEffect(() => {
-    requestLocation().then((position) => {
-      if (!("coords" in position)) return;
-
-      const { latitude: lat, longitude: lng } = position.coords;
-
-      setHref(
-        `https://www.google.com/maps/dir/${lat},${lng}/${location.lat},${location.lng}`
-      );
-    });
-  }, [location]);
+    setHref(
+      `https://www.google.com/maps/dir/${lat},${lng}/${location.lat},${location.lng}`
+    );
+  }, [coords, location]);
 
   return (
     <Section
