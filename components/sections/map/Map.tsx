@@ -1,23 +1,16 @@
 import type { SectionComponent } from "../../../types";
 
-import { useRef, useEffect, useCallback, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 
 import { Section } from "../../common";
 
 import Container from "react-bootstrap/Container";
-import Script from "next/script";
 import Link from "next/link";
 
-import styles from "./Map.module.scss";
 import useLocation from "../../../hooks/useLocation";
 import useInitMap from "../../../hooks/useInitMap";
 
-declare global {
-  interface Window {
-    initMap?: () => void;
-    google: any;
-  }
-}
+import styles from "./Map.module.scss";
 
 const Map: SectionComponent = ({ _type, revealInViewport, location }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -46,11 +39,7 @@ const Map: SectionComponent = ({ _type, revealInViewport, location }) => {
     >
       <Link href={href}>
         <a className={styles.link} target="_blank" rel="noopener noreferrer">
-          <Container className="px-0 h-100" fluid ref={ref}>
-            <Script
-              src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}&callback=initMap`}
-            />
-          </Container>
+          <Container className="px-0 h-100" fluid ref={ref}></Container>
         </a>
       </Link>
     </Section>

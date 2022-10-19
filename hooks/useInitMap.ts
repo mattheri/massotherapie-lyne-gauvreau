@@ -1,11 +1,5 @@
-import { useEffect, useCallback, RefObject } from "react";
-
-declare global {
-  interface Window {
-    initMap?: () => void;
-    google: any;
-  }
-}
+import { useEffect, useRef, RefObject } from "react";
+import { Loader } from "@googlemaps/js-api-loader";
 
 const zoom = 17;
 const disableDefaultUI = true;
@@ -31,37 +25,45 @@ const useInitMap = (
   location?: { lat: number; lng: number },
   ref?: RefObject<HTMLElement>
 ) => {
-  const initMap = useCallback(
-    (element: HTMLElement) => {
-      if (!location) return;
-
-      const center = {
-        lat: location.lat,
-        lng: location.lng,
-      };
-
-      return () => {
-        const map = new window.google.maps.Map(element, {
-          center,
-          ...options,
-        });
-
-        new window.google.maps.Marker({
-          position: center,
-          map,
-        });
-      };
-    },
-    [location]
-  );
+  const mounted = useRef(false);
 
   useEffect(() => {
-    if (!ref || !ref.current) return;
+    const element = ref?.current;
 
-    window.initMap = initMap(ref.current);
+    if (!mounted.current) {
+      mounted.current = true;
+
+      if (element && location && process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY) {
+        const center = {
+          lat: location.lat,
+          lng: location.lng,
+        };
+
+        const loader = new Loader({
+          apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY,
+        });
+
+        loader
+          .load()
+          .then((google) => {
+            const map = new google.maps.Map(element, {
+              center,
+              ...options,
+            });
+
+            new google.maps.Marker({
+              position: center,
+              map,
+            });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    }
 
     return () => {
-      delete window.initMap;
+      mounted.current = false;
     };
   }, [location, ref]);
 };

@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react";
-import useLocalStorage from "./useLocalStorage";
-
-const COORDS_KEY = "coords";
 
 type Coords = { lat: number; lng: number };
 
@@ -16,12 +13,7 @@ const useLocation = () => {
     });
   };
 
-  const { get, set } = useLocalStorage(COORDS_KEY);
-
   const getCoords = async () => {
-    const coords = await get<Coords>();
-    if (coords) return coords;
-
     const position = await requestLocation();
 
     if (position instanceof Error) {
@@ -33,7 +25,6 @@ const useLocation = () => {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       };
-      set(coords);
       return coords;
     }
   };
