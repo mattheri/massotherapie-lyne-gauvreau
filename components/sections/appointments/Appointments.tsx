@@ -1,5 +1,5 @@
 import type { Pay, SectionComponent } from "../../../types";
-import type { ChangeEventHandler } from "react";
+import { ChangeEventHandler, useCallback } from "react";
 
 import { useState, useEffect, Suspense } from "react";
 
@@ -93,16 +93,16 @@ const Appointments: SectionComponent<Props> = ({
 
   const { xSmall, small, medium, large, xLarge } = useBreakpoints();
 
-  const getHeight = () => {
+  const getHeight = useCallback(() => {
     if (large) return 625;
     if (medium) return 900;
 
     return 850;
-  };
+  }, [large, medium]);
 
   useEffect(() => {
     setHeight(getHeight());
-  }, [xSmall, small, medium, large, xLarge]);
+  }, [xSmall, small, medium, large, xLarge, getHeight]);
 
   return (
     <Section type={_type}>
